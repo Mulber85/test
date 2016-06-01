@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Таблица для хранения информации о товарах</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Available__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>В наличии</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Признак наличия товара</inlineHelpText>
+        <label>В наличии</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Date_added__c</fullName>
+        <description>Дата добавления</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Дата добавления товара</inlineHelpText>
+        <label>Дата добавления</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ID__c</fullName>
+        <description>Идентификатор товара</description>
+        <displayFormat>{0}</displayFormat>
+        <externalId>true</externalId>
+        <inlineHelpText>Идентификатор товара</inlineHelpText>
+        <label>Идентификатор</label>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Price__c</fullName>
+        <description>Цена</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Цена товара</inlineHelpText>
+        <label>Цена</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Количество</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Количество товара</inlineHelpText>
+        <label>Количество</label>
+        <precision>10</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Release_date__c</fullName>
+        <description>Дата выпуска</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Дата выпуска товара</inlineHelpText>
+        <label>Дата выпуска</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Тип</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Тип товара</inlineHelpText>
+        <label>Тип</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ПС</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ДП</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>СА</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>КП</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>КТ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Товар</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Products_Full</fullName>
+        <columns>ID__c</columns>
+        <columns>NAME</columns>
+        <columns>Price__c</columns>
+        <columns>Quantity__c</columns>
+        <columns>Type__c</columns>
+        <columns>Date_added__c</columns>
+        <columns>Release_date__c</columns>
+        <columns>Available__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Products_Full</label>
+    </listViews>
+    <nameField>
+        <label>Имя</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Товары (Standard)</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>QuantityCheckRule</fullName>
+        <active>true</active>
+        <description>Количество товара должно быть больше либо равно 0</description>
+        <errorConditionFormula>Quantity__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>Quantity__c</errorDisplayField>
+        <errorMessage>Количество товара меньше нуля.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ReleaseDateCheckRule</fullName>
+        <active>true</active>
+        <description>Дата выпуска товара не должна быть позже текущей даты</description>
+        <errorConditionFormula>Release_date__c &gt; TODAY()</errorConditionFormula>
+        <errorDisplayField>Release_date__c</errorDisplayField>
+        <errorMessage>Дата выпуска товара не должна быть позже текущей даты.</errorMessage>
+    </validationRules>
+</CustomObject>

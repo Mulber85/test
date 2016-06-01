@@ -1,0 +1,90 @@
+<apex:page controller="GoodsVFController" showHeader="true" sidebar="true" standardStylesheets="true" tabStyle="GoodsTab__tab" name="GoodsVF" docType="html-5.0">
+    <apex:stylesheet value="{!URLFOR($Resource.tables, 'sortableTable.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.tables, 'sortableTable.js')}"/>  
+      
+<apex:sectionHeader title="Каталог товаров" />
+ 
+<apex:form id="frm">  
+    <apex:actionFunction name="refreshPageSize" action="{!refreshPageSize}" status="PaginationStatus" reRender="GoodsDataBlock,OutDataBlock"/>
+    <apex:actionFunction name="doCallout" action="{!callout}" /> 
+    Фрагмент имени:&nbsp; <apex:inputText value="{!SearchGoodsStr}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Дата добавления товара:&nbsp; <apex:input value="{!SearchDateStr}" type="date"/>&nbsp;
+    <apex:commandButton action="{!SearchGoods}" value="Поиск" rerender="GoodsDataBlock,OutDataBlock" status="SearchStatus"/>
+    <apex:actionStatus id="SearchStatus">
+        <apex:facet name="start">&nbsp;<img src="/img/loading.gif" alt="Идет поиск.." /></apex:facet>
+        <apex:facet name="stop"></apex:facet>
+    </apex:actionStatus>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      
+    <apex:pageBlock title="Goods" mode="detail" id="GoodsDataBlock">          
+        <apex:panelGrid columns="8"> <!-- слетает логика JS при ре-рендеринге -->
+            <apex:selectList value="{!size}" multiselect="false" size="1" onchange="refreshPageSize();">
+                <apex:selectOptions value="{!paginationSizeOptions}"/>
+            </apex:selectList>        
+            <apex:commandButton action="{!setCon.first}" status="PaginationStatus" reRender="GoodsDataBlock,OutDataBlock" value="|<" disabled="{!!setCon.hasPrevious}" title="First Page"/>
+            <apex:commandButton action="{!setCon.previous}" status="PaginationStatus" reRender="GoodsDataBlock,OutDataBlock" value="<" disabled="{!!setCon.hasPrevious}" title="Previous Page"/>
+            <apex:commandButton action="{!setCon.next}" status="PaginationStatus" reRender="GoodsDataBlock,OutDataBlock" value=">" disabled="{!!setCon.hasNext}" title="Next Page"/>
+            <apex:commandButton action="{!setCon.last}" status="PaginationStatus" reRender="GoodsDataBlock,OutDataBlock" value=">|" disabled="{!!setCon.hasNext}" title="Last Page"/>
+            <apex:outputText >{!(setCon.pageNumber * size)+1-size}-{!IF((setCon.pageNumber * size)>noOfRecords, noOfRecords,(setCon.pageNumber * size))} of {!noOfRecords}</apex:outputText>
+            <apex:actionStatus id="PaginationStatus">
+                <apex:facet name="start"><img src="/img/loading.gif" alt="" /></apex:facet>
+                <apex:facet name="stop"></apex:facet>
+            </apex:actionStatus>
+        </apex:panelGrid>  
+    </apex:pageBlock>               
+    <apex:outputPanel layout="block" id="OutDataBlock">       
+        <table class="list sortable" width="100%" cellpadding="0" cellspacing="0">     
+            <tr class="headerRow" > 
+                <th>Имя</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Тип</th>
+                <th>Дата добавления</th>
+                <th>Дата выпуска</th>
+                <th>В наличии</th>                
+                <th>&nbsp;</th>                
+            </tr> 
+            <apex:repeat value="{!Goods}" var="product" rendered="true">    
+                <tr class="dataRow even first">
+                    <td>
+                        <apex:outputText value="{!product.Name}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!product.Price__c}"/>
+                     </td>
+                    <td>
+                        <apex:outputText value="{!product.Quantity__c}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!product.Type__c}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                            <apex:param value="{!product.Date_added__c}" /> 
+                        </apex:outputText>                    
+                        <!-- <apex:outputField value="{!product.Date_added__c}"/>-->
+                    </td>                    
+                    <td>
+                        <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                            <apex:param value="{!product.Release_date__c}" /> 
+                        </apex:outputText>                                        
+                        <!--<apex:outputField value="{!product.Release_date__c}"/>-->
+                    </td>                    
+                    <td width="80" align="center">
+                        <apex:outputText value="{!product.Available__c}"/>                                              
+                    </td>                                                                                                                                     
+                    <td width="120" align="center" valign="center"> 
+                        <apex:outputLink title="" value="/{!product.Id}/e?retURL=/apex/{!$CurrentPage.Name}" styleClass="btn" target="_parent">Правка
+                            <apex:param name="edtLnk4Debug" assignTo="{!edtLnk4Debug}" value="/{!product.Id}/e?retURL=/apex/{!$CurrentPage.Name}" />                             
+                        </apex:outputLink>                                                                                            
+                        <apex:commandLink value="Удалить" Action="{!DeleteGoods}" title="Удалить" onclick="if(!confirm('Вы действительно хотите удалить запись?')){return false;}" styleClass="btn">
+                            <apex:param name="recordId" assignTo="{!selectedRecordId}" value="{!product.Id}" />     
+                        </apex:commandLink>                                               
+                    </td>                                         
+                </tr>                                                                         
+            </apex:repeat>                                               
+        </table><br/>                        
+        <!--<apex:commandButton value="Создать" Action="{!whatever}" image="{!URLFOR($Resource.styles, 'images/create.png')}" alt="Создать" title="Создать"/>-->
+        <apex:outputLink title="" value="/a05/e?retURL=/apex/{!$CurrentPage.Name}" target="_parent"><apex:image url="{!URLFOR($Resource.styles, 'images/create.png')}"/></apex:outputLink>                       
+    </apex:outputPanel>          
+</apex:form>
+
+</apex:page>

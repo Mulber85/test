@@ -1,0 +1,32 @@
+<apex:page standardController="Product__c" recordSetVar="products" tabStyle="GoodsList__tab" extensions="GoodsListController" docType="html-5.0">
+<apex:form id="frm">
+    <apex:pageMessages id="errMsg" />
+    <apex:pageBlock title="Новый товар">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>    
+        <apex:panelGrid columns="2">
+           Имя: <apex:inputText value="{!product.Name}"/>
+           Цена: <apex:inputText value="{!product.Price__c}"/>
+           Количество: <apex:inputText value="{!product.Quantity__c}"/>
+           Тип: <apex:selectList value="{!selType}" multiselect="false" size="1">
+                    <apex:selectOption itemValue="ПС" itemLabel="ПС"/>
+                    <apex:selectOption itemValue="ДП" itemLabel="ДП"/>
+                    <apex:selectOption itemValue="СА" itemLabel="СА"/>
+                    <apex:selectOption itemValue="КП" itemLabel="КП"/>
+                    <apex:selectOption itemValue="КТ" itemLabel="КТ"/>                    
+                </apex:selectList>           
+           Дата добавления: <apex:inputField value="{!product.Date_added__c}" style="width:168px"/>
+           Дата выпуска: <apex:inputField value="{!product.Release_date__c}" style="width:168px"/>                   
+        </apex:panelGrid>
+    </apex:pageBlock>  
+    <apex:pageBlock title="Список товаров" rendered="{!showList}">
+        <apex:pageBlockTable value="{!products}" var="pitem">
+            <apex:column headerValue="Имя">
+                <apex:outputText value="{!pitem.Name}"/>
+            </apex:column>
+        </apex:pageBlockTable>    
+    </apex:pageBlock>          
+</apex:form>
+</apex:page>
